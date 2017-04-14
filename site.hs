@@ -2,6 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
 import           Hakyll
+import           Control.Applicative
 
 
 --------------------------------------------------------------------------------
@@ -15,17 +16,17 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-    match (fromList ["about.rst", "contact.markdown"]) $ do
-        route   $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
-            >>= relativizeUrls
+    --match (fromList ["about.md"]) $ do
+    --    route   $ setExtension "html"
+    --    compile $ pandocCompiler
+    --        >>= loadAndApplyTemplate "templates/default.html" siteCtx
+    --        >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= loadAndApplyTemplate "templates/post.html"    siteCtx
+            >>= loadAndApplyTemplate "templates/default.html" siteCtx
             >>= relativizeUrls
 
     create ["archive.html"] $ do
@@ -35,7 +36,7 @@ main = hakyll $ do
             let archiveCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Archives"            `mappend`
-                    defaultContext
+                    siteCtx
 
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -50,7 +51,7 @@ main = hakyll $ do
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Home"                `mappend`
-                    defaultContext
+                    siteCtx
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
@@ -64,5 +65,14 @@ main = hakyll $ do
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
-    defaultContext
+    siteCtx
 
+siteCtx :: Context String
+siteCtx =
+	activeClassField `mappend`
+	defaultContext
+
+activeClassField :: Context String
+activeClassField = functionField "activeClass" $ \[p] _ -> do
+	path <- toFilePath <$> getUnderlying
+	return $ if path == p then "active" else path
