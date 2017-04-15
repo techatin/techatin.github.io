@@ -121,7 +121,7 @@ codeBlock cb@(CodeBlock (id, classes, namevals) contents) =
     case lookup "lang" namevals of
         Just f -> RawBlock (Format "html") $ svg contents
         nothing -> cb
-codeBlock x = x
+codeBlock y = y
 
 svg :: String -> String
-svg contents = unsafePerformIO $ readProcess "dot" ["-Tsvg"] contents
+svg contents = unsafePerformIO $ readProcess "dot" ["-Tsvg", "-Gsize=6,10"] contents

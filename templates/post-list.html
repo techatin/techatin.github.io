@@ -1,11 +1,8 @@
-<ul id="posts">
+<div class="list-group" id="posts">
     $for(posts)$
-        <li>
-            <h3> $title$ - $date$ </h3>
-            <blockquote>
-                <p> $teaser$ </p>
-                <a href="$url$"> Read more </a>
-            </blockquote>
-        </li>
+        <a href="$url$" class="list-group-item">
+            <h3 class="list-group-item-heading"> $title$ - $date$ </h3>
+            <p class="list-group-item-text"> $teaser$ </p>
+        </a>
     $endfor$
-</ul>
+</div>
