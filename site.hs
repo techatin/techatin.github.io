@@ -3,7 +3,13 @@
 import           Data.Monoid (mappend)
 import           Hakyll
 import           Control.Applicative
-
+import qualified Data.Set as S
+import           Text.Pandoc.Options
+import qualified Data.Map as M
+import           Text.Pandoc
+import           Text.Pandoc.Walk ( walk )
+import           System.Process ( readProcess )
+import           System.IO.Unsafe ( unsafePerformIO )
 
 --------------------------------------------------------------------------------
 main :: IO ()
@@ -16,17 +22,39 @@ main = hakyll $ do
         route   idRoute
         compile compressCssCompiler
 
-    --match (fromList ["about.md"]) $ do
-    --    route   $ setExtension "html"
-    --    compile $ pandocCompiler
-    --        >>= loadAndApplyTemplate "templates/default.html" siteCtx
-    --        >>= relativizeUrls
+    match "js/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
+    tags <- buildTags "posts/*" (fromCapture "tags/*.html")
+
+    match (fromList ["about.md"]) $ do
+        route   $ setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
+            >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+            >>= relativizeUrls
+
+    tagsRules tags $ \tag pattern -> do
+        let title = "Posts tagged \"" ++ tag ++ "\""
+        route idRoute
+        compile $ do
+            posts <- recentFirst =<< loadAll pattern
+            let ctx = constField "title" title
+                      `mappend` listField "posts" teaserCtx (return posts)
+                      `mappend` defaultContext
+
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/tag.html" ctx
+                >>= loadAndApplyTemplate "templates/default.html" ctx
+                >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    siteCtx
-            >>= loadAndApplyTemplate "templates/default.html" siteCtx
+        compile $ pandocMathCompiler
+            >>= saveSnapshot "content"
+            >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
+            >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
             >>= relativizeUrls
 
     create ["archive.html"] $ do
@@ -34,9 +62,9 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let archiveCtx =
-                    listField "posts" postCtx (return posts) `mappend`
+                    listField "posts" teaserCtx (return posts) `mappend`
                     constField "title" "Archives"            `mappend`
-                    siteCtx
+                    postCtx
 
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
@@ -47,11 +75,11 @@ main = hakyll $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- recentFirst =<< loadAllSnapshots "posts/*" "content"
             let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
+                    listField "posts" teaserCtx (return posts) `mappend`
                     constField "title" "Home"                `mappend`
-                    siteCtx
+                    defaultContext
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
@@ -62,17 +90,38 @@ main = hakyll $ do
 
 
 --------------------------------------------------------------------------------
+
+postCtxWithTags :: Tags -> Context String
+postCtxWithTags tags = tagsField "tags" tags `mappend` postCtx
+
+teaserCtx :: Context String
+teaserCtx = teaserField "teaser" "content" `mappend` postCtx
+
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
-    siteCtx
+    defaultContext
 
-siteCtx :: Context String
-siteCtx =
-	activeClassField `mappend`
-	defaultContext
+pandocMathCompiler =
+    let mathExtensions = [Ext_tex_math_dollars, Ext_tex_math_double_backslash,
+                          Ext_latex_macros]
+        defaultExtensions = writerExtensions defaultHakyllWriterOptions
+        newExtensions = foldr S.insert defaultExtensions mathExtensions
+        writerOptions = defaultHakyllWriterOptions {
+                          writerExtensions = newExtensions,
+                          writerHTMLMathMethod = MathJax ""
+                        }
+    in pandocCompilerWithTransform defaultHakyllReaderOptions writerOptions graphViz
 
-activeClassField :: Context String
-activeClassField = functionField "activeClass" $ \[p] _ -> do
-	path <- toFilePath <$> getUnderlying
-	return $ if path == p then "active" else path
+graphViz :: Pandoc -> Pandoc
+graphViz = walk codeBlock
+
+codeBlock :: Block -> Block
+codeBlock cb@(CodeBlock (id, classes, namevals) contents) =
+    case lookup "lang" namevals of
+        Just f -> RawBlock (Format "html") $ svg contents
+        nothing -> cb
+codeBlock x = x
+
+svg :: String -> String
+svg contents = unsafePerformIO $ readProcess "dot" ["-Tsvg"] contents
