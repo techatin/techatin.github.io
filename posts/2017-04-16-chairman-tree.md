@@ -200,4 +200,4 @@ int main() {
 ```
 
 The remaining code will be posted when I recovered from the trauma of writing this post and
-the immense amount of homework. For any queries, feel free to email me at 18yluxu069i@ri.edu.sg.
+the immense amount of homework. For any queries, feel free to email me at 18yluxu069i@students.ri.edu.sg.
