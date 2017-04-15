@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="@katychuang" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />
+    <title>Hakyll CSS Garden</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    <link rel="stylesheet" type="text/css" href="../css/custom.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <div class="highbar">&nbsp;</div>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="../" class="navbar-brand">Just a Blog</a>
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main" aria-expanded="false" style="height: 1px;">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Tags <span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            <li><a href="../default/">Default</a></li>
+                            <li class="divider"></li>
+                            <li><a href="../cerulean/">Cerulean</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../about.html"> About me </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
+                    <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="page-header" id="banner">
+                <div id="content" class="inside">
+                    <div class="row">
+
+    <div class="col-lg-3">
+        <div class="panel panel-default" id="info">
+            <div class="panel-body">
+                <h3> Data Persistent Segment Tree </h3>
+                <p>
+                    <small>
+                        Posted on April 16, 2017
+                        
+                            by Techatin
+                        
+                    </small>
+                </p>
+                
+                    <p>
+                        <small>
+                            <a href="../tags/competitive%20programming.html">competitive programming</a>, <a href="../tags/data%20structures.html">data structures</a>
+                        </small>
+                    </p>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        
+            <div class="well">
+                <p> It's China magic, or is it? </p>
+            </div>
+            <hr />
+        
+        <p>In Singapore NOI 2015, a rather peculiar question was asked, where the contestants are supposed to perform a range <span class="math inline">\(k^{th}\)</span> largest query. The official solution presented was a somewhat obscure merge sort segment tree, which had pretty high time and space complexities. Of course, there are ways to do better than that. This article presents such a data structure called data persistent segment tree(DPST), or known affectionately by the Chinese OIers, 主席树(chairman’s tree).</p>
+<!--more-->
+<p>Using a DPST to solve the aforementioned problem may not be intuitive at the first glance, so we will start with the easiest case. Imagine that the query is on the whole range, but you are only allowed to use a segment tree. The idea is to build a tree on the values of the array. Each node <span class="math inline">\([l, r]\)</span> stores the information how many elements have values between <span class="math inline">\(l\)</span> and <span class="math inline">\(r\)</span> inclusive. For instance, consider the following array:</p>
+<p><span class="math display">\[ r = [1, 3, 2, 4, 5, 7, 6, 8] \]</span></p>
+<p>The resultant segment tree will look something like:</p>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="432pt" height="150pt" viewBox="0.00 0.00 432.00 149.82" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.576228 0.576228) rotate(0) translate(4 256)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-256 745.703,-256 745.703,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<ellipse fill="none" stroke="black" cx="370.352" cy="-234" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="370.352" y="-229.8" font-family="Times,serif" font-size="14.00">[1, 8]: 8</text>
+</g>
+<!-- b -->
+<g id="node2" class="node"><title>b</title>
+<ellipse fill="none" stroke="black" cx="275.352" cy="-162" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="275.352" y="-157.8" font-family="Times,serif" font-size="14.00">[1, 4]: 4</text>
+</g>
+<!-- a&#45;&gt;b -->
+<g id="edge1" class="edge"><title>a-&gt;b</title>
+<path fill="none" stroke="black" d="M350.667,-218.496C336.911,-208.359 318.348,-194.681 303.093,-183.441"></path>
+<polygon fill="black" stroke="black" points="305.137,-180.6 295.01,-177.485 300.985,-186.235 305.137,-180.6"></polygon>
+</g>
+<!-- c -->
+<g id="node3" class="node"><title>c</title>
+<ellipse fill="none" stroke="black" cx="465.352" cy="-162" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="465.352" y="-157.8" font-family="Times,serif" font-size="14.00">[5, 8]: 4</text>
+</g>
+<!-- a&#45;&gt;c -->
+<g id="edge2" class="edge"><title>a-&gt;c</title>
+<path fill="none" stroke="black" d="M390.036,-218.496C403.792,-208.359 422.355,-194.681 437.61,-183.441"></path>
+<polygon fill="black" stroke="black" points="439.718,-186.235 445.693,-177.485 435.566,-180.6 439.718,-186.235"></polygon>
+</g>
+<!-- d -->
+<g id="node4" class="node"><title>d</title>
+<ellipse fill="none" stroke="black" cx="133.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="133.352" y="-85.8" font-family="Times,serif" font-size="14.00">[1, 2]: 2</text>
+</g>
+<!-- b&#45;&gt;d -->
+<g id="edge3" class="edge"><title>b-&gt;d</title>
+<path fill="none" stroke="black" d="M249.965,-148.485C227.187,-137.257 193.549,-120.675 168.246,-108.202"></path>
+<polygon fill="black" stroke="black" points="169.514,-104.925 158.997,-103.642 166.419,-111.203 169.514,-104.925"></polygon>
+</g>
+<!-- e -->
+<g id="node5" class="node"><title>e</title>
+<ellipse fill="none" stroke="black" cx="275.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="275.352" y="-85.8" font-family="Times,serif" font-size="14.00">[3, 4]: 2</text>
+</g>
+<!-- b&#45;&gt;e -->
+<g id="edge4" class="edge"><title>b-&gt;e</title>
+<path fill="none" stroke="black" d="M275.352,-143.697C275.352,-135.983 275.352,-126.712 275.352,-118.112"></path>
+<polygon fill="black" stroke="black" points="278.852,-118.104 275.352,-108.104 271.852,-118.104 278.852,-118.104"></polygon>
+</g>
+<!-- f -->
+<g id="node6" class="node"><title>f</title>
+<ellipse fill="none" stroke="black" cx="465.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="465.352" y="-85.8" font-family="Times,serif" font-size="14.00">[5, 6]: 2</text>
+</g>
+<!-- c&#45;&gt;f -->
+<g id="edge5" class="edge"><title>c-&gt;f</title>
+<path fill="none" stroke="black" d="M465.352,-143.697C465.352,-135.983 465.352,-126.712 465.352,-118.112"></path>
+<polygon fill="black" stroke="black" points="468.852,-118.104 465.352,-108.104 461.852,-118.104 468.852,-118.104"></polygon>
+</g>
+<!-- g -->
+<g id="node7" class="node"><title>g</title>
+<ellipse fill="none" stroke="black" cx="608.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="608.352" y="-85.8" font-family="Times,serif" font-size="14.00">[7, 8]: 2</text>
+</g>
+<!-- c&#45;&gt;g -->
+<g id="edge6" class="edge"><title>c-&gt;g</title>
+<path fill="none" stroke="black" d="M490.917,-148.485C513.855,-137.257 547.73,-120.675 573.211,-108.202"></path>
+<polygon fill="black" stroke="black" points="575.082,-111.183 582.525,-103.642 572.005,-104.895 575.082,-111.183"></polygon>
+</g>
+<!-- h -->
+<g id="node8" class="node"><title>h</title>
+<ellipse fill="none" stroke="black" cx="38.3515" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="38.3515" y="-13.8" font-family="Times,serif" font-size="14.00">[1, 1]: 1</text>
+</g>
+<!-- d&#45;&gt;h -->
+<g id="edge7" class="edge"><title>d-&gt;h</title>
+<path fill="none" stroke="black" d="M113.667,-74.496C99.9106,-64.3594 81.3477,-50.6814 66.0932,-39.4412"></path>
+<polygon fill="black" stroke="black" points="68.1371,-36.5998 58.0103,-33.4855 63.9847,-42.2352 68.1371,-36.5998"></polygon>
+</g>
+<!-- i -->
+<g id="node9" class="node"><title>i</title>
+<ellipse fill="none" stroke="black" cx="133.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="133.352" y="-13.8" font-family="Times,serif" font-size="14.00">[2, 2]: 1</text>
+</g>
+<!-- d&#45;&gt;i -->
+<g id="edge8" class="edge"><title>d-&gt;i</title>
+<path fill="none" stroke="black" d="M133.352,-71.6966C133.352,-63.9827 133.352,-54.7125 133.352,-46.1124"></path>
+<polygon fill="black" stroke="black" points="136.852,-46.1043 133.352,-36.1043 129.852,-46.1044 136.852,-46.1043"></polygon>
+</g>
+<!-- j -->
+<g id="node10" class="node"><title>j</title>
+<ellipse fill="none" stroke="black" cx="228.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="228.352" y="-13.8" font-family="Times,serif" font-size="14.00">[3, 3]: 1</text>
+</g>
+<!-- e&#45;&gt;j -->
+<g id="edge9" class="edge"><title>e-&gt;j</title>
+<path fill="none" stroke="black" d="M264.213,-72.411C258.477,-63.8677 251.367,-53.2785 244.994,-43.7874"></path>
+<polygon fill="black" stroke="black" points="247.89,-41.8211 239.41,-35.4699 242.079,-45.7232 247.89,-41.8211"></polygon>
+</g>
+<!-- k -->
+<g id="node11" class="node"><title>k</title>
+<ellipse fill="none" stroke="black" cx="323.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="323.352" y="-13.8" font-family="Times,serif" font-size="14.00">[4, 4]: 1</text>
+</g>
+<!-- e&#45;&gt;k -->
+<g id="edge10" class="edge"><title>e-&gt;k</title>
+<path fill="none" stroke="black" d="M286.484,-72.7646C292.337,-64.2301 299.638,-53.5822 306.196,-44.0191"></path>
+<polygon fill="black" stroke="black" points="309.177,-45.8601 311.946,-35.6334 303.404,-41.9013 309.177,-45.8601"></polygon>
+</g>
+<!-- l -->
+<g id="node12" class="node"><title>l</title>
+<ellipse fill="none" stroke="black" cx="418.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="418.352" y="-13.8" font-family="Times,serif" font-size="14.00">[5, 5]: 1</text>
+</g>
+<!-- f&#45;&gt;l -->
+<g id="edge11" class="edge"><title>f-&gt;l</title>
+<path fill="none" stroke="black" d="M454.213,-72.411C448.477,-63.8677 441.367,-53.2785 434.994,-43.7874"></path>
+<polygon fill="black" stroke="black" points="437.89,-41.8211 429.41,-35.4699 432.079,-45.7232 437.89,-41.8211"></polygon>
+</g>
+<!-- m -->
+<g id="node13" class="node"><title>m</title>
+<ellipse fill="none" stroke="black" cx="513.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="513.352" y="-13.8" font-family="Times,serif" font-size="14.00">[6, 6]: 1</text>
+</g>
+<!-- f&#45;&gt;m -->
+<g id="edge12" class="edge"><title>f-&gt;m</title>
+<path fill="none" stroke="black" d="M476.484,-72.7646C482.337,-64.2301 489.638,-53.5822 496.196,-44.0191"></path>
+<polygon fill="black" stroke="black" points="499.177,-45.8601 501.946,-35.6334 493.404,-41.9013 499.177,-45.8601"></polygon>
+</g>
+<!-- n -->
+<g id="node14" class="node"><title>n</title>
+<ellipse fill="none" stroke="black" cx="608.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="608.352" y="-13.8" font-family="Times,serif" font-size="14.00">[7, 7]: 1</text>
+</g>
+<!-- g&#45;&gt;n -->
+<g id="edge13" class="edge"><title>g-&gt;n</title>
+<path fill="none" stroke="black" d="M608.352,-71.6966C608.352,-63.9827 608.352,-54.7125 608.352,-46.1124"></path>
+<polygon fill="black" stroke="black" points="611.852,-46.1043 608.352,-36.1043 604.852,-46.1044 611.852,-46.1043"></polygon>
+</g>
+<!-- o -->
+<g id="node15" class="node"><title>o</title>
+<ellipse fill="none" stroke="black" cx="703.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="703.352" y="-13.8" font-family="Times,serif" font-size="14.00">[8, 8]: 1</text>
+</g>
+<!-- g&#45;&gt;o -->
+<g id="edge14" class="edge"><title>g-&gt;o</title>
+<path fill="none" stroke="black" d="M628.036,-74.496C641.792,-64.3594 660.355,-50.6814 675.61,-39.4412"></path>
+<polygon fill="black" stroke="black" points="677.718,-42.2352 683.693,-33.4855 673.566,-36.5998 677.718,-42.2352"></polygon>
+</g>
+</g>
+</svg>
+
+<p>Where <span class="math inline">\([l, r]:k\)</span> means there are <span class="math inline">\(k\)</span> values smaller than or equal to <span class="math inline">\(r\)</span> but larger than or equal to <span class="math inline">\(l\)</span>. The solution then comes almost naturally. If the label on the right subtree is more than or equals to <span class="math inline">\(k\)</span>, we know that the answer definitely lies somewhere in the segment covered by the right subtree. Otherwise, it must be in the left subtree. More generally, the algorithm can be described using the following pesudocode (actually c++):</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">
+<span class="dt">int</span> find_kth(node n, <span class="dt">int</span> k) {
+    <span class="cf">if</span> (is_leaf(n)) <span class="cf">return</span> n.label;
+    <span class="cf">if</span> (n.right_child.size &gt;= k) <span class="cf">return</span> find_kth(n.right_child, k);
+    <span class="cf">else</span> <span class="cf">return</span> find_kth(n.left_child, k - n.right_child.size());
+}</code></pre></div>
+<p>But this is quite stupid - we can just sort first, or simply iterate through and get the same result. You will see how it can extend to more complicated scenarios, such as the one below:</p>
+<p>Assuming we now have to entertain all queries in the form <span class="math inline">\(&lt;1, i&gt;: k\)</span>, that is, finding the <span class="math inline">\(k^{th}\)</span> largest element between positions 1 and <span class="math inline">\(i\)</span>. Notice how the notation is different. We will use <span class="math inline">\([l, r]\)</span> to denote the range of values, and <span class="math inline">\(&lt;l, r&gt;\)</span> to denote the range of positions in the given array. We can use the same approach as above, building a segment tree for each range starting at index one. The only problem is with the ridiculous space complexity of <span class="math inline">\(\mathcal{O}(n^2\log{}n)\)</span>, where <span class="math inline">\(n\)</span> is the number of distinct elements in the array.</p>
+<p>Now, the magic will start. We will use the idea of data persistence to reduce the space complexity to <span class="math inline">\(\mathcal{O}(n\log{}n)\)</span>. First, we note that every time we insert an element, at most one subtree for each node has changed. This means that we can just reuse the unchanged node. For instance, consider the array</p>
+<p><span class="math display">\[ r = [1, 3, 2, 4, 5, 7, 6, 8] \]</span></p>
+<p>At <span class="math inline">\(t=1\)</span>, we insert the first element into our value-based segment tree. To avoid confusion, we color edges pointing to the left child red.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="432pt" height="150pt" viewBox="0.00 0.00 432.00 149.82" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.576228 0.576228) rotate(0) translate(4 256)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-256 745.703,-256 745.703,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<ellipse fill="none" stroke="black" cx="370.352" cy="-234" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="370.352" y="-229.8" font-family="Times,serif" font-size="14.00">[1, 8]: 1</text>
+</g>
+<!-- b -->
+<g id="node2" class="node"><title>b</title>
+<ellipse fill="none" stroke="black" cx="275.352" cy="-162" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="275.352" y="-157.8" font-family="Times,serif" font-size="14.00">[1, 4]: 1</text>
+</g>
+<!-- a&#45;&gt;b -->
+<g id="edge1" class="edge"><title>a-&gt;b</title>
+<path fill="none" stroke="red" d="M350.667,-218.496C336.911,-208.359 318.348,-194.681 303.093,-183.441"></path>
+<polygon fill="red" stroke="red" points="305.137,-180.6 295.01,-177.485 300.985,-186.235 305.137,-180.6"></polygon>
+</g>
+<!-- c -->
+<g id="node3" class="node"><title>c</title>
+<ellipse fill="none" stroke="black" cx="465.352" cy="-162" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="465.352" y="-157.8" font-family="Times,serif" font-size="14.00">[5, 8]: 0</text>
+</g>
+<!-- a&#45;&gt;c -->
+<g id="edge2" class="edge"><title>a-&gt;c</title>
+<path fill="none" stroke="black" d="M390.036,-218.496C403.792,-208.359 422.355,-194.681 437.61,-183.441"></path>
+<polygon fill="black" stroke="black" points="439.718,-186.235 445.693,-177.485 435.566,-180.6 439.718,-186.235"></polygon>
+</g>
+<!-- d -->
+<g id="node4" class="node"><title>d</title>
+<ellipse fill="none" stroke="black" cx="133.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="133.352" y="-85.8" font-family="Times,serif" font-size="14.00">[1, 2]: 1</text>
+</g>
+<!-- b&#45;&gt;d -->
+<g id="edge3" class="edge"><title>b-&gt;d</title>
+<path fill="none" stroke="red" d="M249.965,-148.485C227.187,-137.257 193.549,-120.675 168.246,-108.202"></path>
+<polygon fill="red" stroke="red" points="169.514,-104.925 158.997,-103.642 166.419,-111.203 169.514,-104.925"></polygon>
+</g>
+<!-- e -->
+<g id="node5" class="node"><title>e</title>
+<ellipse fill="none" stroke="black" cx="275.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="275.352" y="-85.8" font-family="Times,serif" font-size="14.00">[3, 4]: 0</text>
+</g>
+<!-- b&#45;&gt;e -->
+<g id="edge4" class="edge"><title>b-&gt;e</title>
+<path fill="none" stroke="black" d="M275.352,-143.697C275.352,-135.983 275.352,-126.712 275.352,-118.112"></path>
+<polygon fill="black" stroke="black" points="278.852,-118.104 275.352,-108.104 271.852,-118.104 278.852,-118.104"></polygon>
+</g>
+<!-- f -->
+<g id="node6" class="node"><title>f</title>
+<ellipse fill="none" stroke="black" cx="465.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="465.352" y="-85.8" font-family="Times,serif" font-size="14.00">[5, 6]: 0</text>
+</g>
+<!-- c&#45;&gt;f -->
+<g id="edge5" class="edge"><title>c-&gt;f</title>
+<path fill="none" stroke="red" d="M465.352,-143.697C465.352,-135.983 465.352,-126.712 465.352,-118.112"></path>
+<polygon fill="red" stroke="red" points="468.852,-118.104 465.352,-108.104 461.852,-118.104 468.852,-118.104"></polygon>
+</g>
+<!-- g -->
+<g id="node7" class="node"><title>g</title>
+<ellipse fill="none" stroke="black" cx="608.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="608.352" y="-85.8" font-family="Times,serif" font-size="14.00">[7, 8]: 0</text>
+</g>
+<!-- c&#45;&gt;g -->
+<g id="edge6" class="edge"><title>c-&gt;g</title>
+<path fill="none" stroke="black" d="M490.917,-148.485C513.855,-137.257 547.73,-120.675 573.211,-108.202"></path>
+<polygon fill="black" stroke="black" points="575.082,-111.183 582.525,-103.642 572.005,-104.895 575.082,-111.183"></polygon>
+</g>
+<!-- h -->
+<g id="node8" class="node"><title>h</title>
+<ellipse fill="none" stroke="black" cx="38.3515" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="38.3515" y="-13.8" font-family="Times,serif" font-size="14.00">[1, 1]: 1</text>
+</g>
+<!-- d&#45;&gt;h -->
+<g id="edge7" class="edge"><title>d-&gt;h</title>
+<path fill="none" stroke="red" d="M113.667,-74.496C99.9106,-64.3594 81.3477,-50.6814 66.0932,-39.4412"></path>
+<polygon fill="red" stroke="red" points="68.1371,-36.5998 58.0103,-33.4855 63.9847,-42.2352 68.1371,-36.5998"></polygon>
+</g>
+<!-- i -->
+<g id="node9" class="node"><title>i</title>
+<ellipse fill="none" stroke="black" cx="133.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="133.352" y="-13.8" font-family="Times,serif" font-size="14.00">[2, 2]: 0</text>
+</g>
+<!-- d&#45;&gt;i -->
+<g id="edge8" class="edge"><title>d-&gt;i</title>
+<path fill="none" stroke="black" d="M133.352,-71.6966C133.352,-63.9827 133.352,-54.7125 133.352,-46.1124"></path>
+<polygon fill="black" stroke="black" points="136.852,-46.1043 133.352,-36.1043 129.852,-46.1044 136.852,-46.1043"></polygon>
+</g>
+<!-- j -->
+<g id="node10" class="node"><title>j</title>
+<ellipse fill="none" stroke="black" cx="228.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="228.352" y="-13.8" font-family="Times,serif" font-size="14.00">[3, 3]: 0</text>
+</g>
+<!-- e&#45;&gt;j -->
+<g id="edge9" class="edge"><title>e-&gt;j</title>
+<path fill="none" stroke="red" d="M264.213,-72.411C258.477,-63.8677 251.367,-53.2785 244.994,-43.7874"></path>
+<polygon fill="red" stroke="red" points="247.89,-41.8211 239.41,-35.4699 242.079,-45.7232 247.89,-41.8211"></polygon>
+</g>
+<!-- k -->
+<g id="node11" class="node"><title>k</title>
+<ellipse fill="none" stroke="black" cx="323.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="323.352" y="-13.8" font-family="Times,serif" font-size="14.00">[4, 4]: 0</text>
+</g>
+<!-- e&#45;&gt;k -->
+<g id="edge10" class="edge"><title>e-&gt;k</title>
+<path fill="none" stroke="black" d="M286.484,-72.7646C292.337,-64.2301 299.638,-53.5822 306.196,-44.0191"></path>
+<polygon fill="black" stroke="black" points="309.177,-45.8601 311.946,-35.6334 303.404,-41.9013 309.177,-45.8601"></polygon>
+</g>
+<!-- l -->
+<g id="node12" class="node"><title>l</title>
+<ellipse fill="none" stroke="black" cx="418.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="418.352" y="-13.8" font-family="Times,serif" font-size="14.00">[5, 5]: 0</text>
+</g>
+<!-- f&#45;&gt;l -->
+<g id="edge11" class="edge"><title>f-&gt;l</title>
+<path fill="none" stroke="red" d="M454.213,-72.411C448.477,-63.8677 441.367,-53.2785 434.994,-43.7874"></path>
+<polygon fill="red" stroke="red" points="437.89,-41.8211 429.41,-35.4699 432.079,-45.7232 437.89,-41.8211"></polygon>
+</g>
+<!-- m -->
+<g id="node13" class="node"><title>m</title>
+<ellipse fill="none" stroke="black" cx="513.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="513.352" y="-13.8" font-family="Times,serif" font-size="14.00">[6, 6]: 0</text>
+</g>
+<!-- f&#45;&gt;m -->
+<g id="edge12" class="edge"><title>f-&gt;m</title>
+<path fill="none" stroke="black" d="M476.484,-72.7646C482.337,-64.2301 489.638,-53.5822 496.196,-44.0191"></path>
+<polygon fill="black" stroke="black" points="499.177,-45.8601 501.946,-35.6334 493.404,-41.9013 499.177,-45.8601"></polygon>
+</g>
+<!-- n -->
+<g id="node14" class="node"><title>n</title>
+<ellipse fill="none" stroke="black" cx="608.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="608.352" y="-13.8" font-family="Times,serif" font-size="14.00">[7, 7]: 0</text>
+</g>
+<!-- g&#45;&gt;n -->
+<g id="edge13" class="edge"><title>g-&gt;n</title>
+<path fill="none" stroke="red" d="M608.352,-71.6966C608.352,-63.9827 608.352,-54.7125 608.352,-46.1124"></path>
+<polygon fill="red" stroke="red" points="611.852,-46.1043 608.352,-36.1043 604.852,-46.1044 611.852,-46.1043"></polygon>
+</g>
+<!-- o -->
+<g id="node15" class="node"><title>o</title>
+<ellipse fill="none" stroke="black" cx="703.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="703.352" y="-13.8" font-family="Times,serif" font-size="14.00">[8, 8]: 0</text>
+</g>
+<!-- g&#45;&gt;o -->
+<g id="edge14" class="edge"><title>g-&gt;o</title>
+<path fill="none" stroke="black" d="M628.036,-74.496C641.792,-64.3594 660.355,-50.6814 675.61,-39.4412"></path>
+<polygon fill="black" stroke="black" points="677.718,-42.2352 683.693,-33.4855 673.566,-36.5998 677.718,-42.2352"></polygon>
+</g>
+</g>
+</svg>
+
+<p>At <span class="math inline">\(t=2\)</span>, we create a new root node <span class="math inline">\([1, 8]: 2\)</span>. But notice that instead of creating both child nodes of the root node, we can reuse the right child since it has not been altered. We do the same for all subsequent nodes. To make things clearer, we colored all newly created nodes blue. We have:</p>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="432pt" height="133pt" viewBox="0.00 0.00 432.00 132.97" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.511422 0.511422) rotate(0) translate(4 256)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-256 840.703,-256 840.703,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<ellipse fill="none" stroke="black" cx="287.352" cy="-234" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="287.352" y="-229.8" font-family="Times,serif" font-size="14.00">[1, 8]: 1</text>
+</g>
+<!-- b -->
+<g id="node2" class="node"><title>b</title>
+<ellipse fill="none" stroke="black" cx="252.352" cy="-162" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="252.352" y="-157.8" font-family="Times,serif" font-size="14.00">[1, 4]: 1</text>
+</g>
+<!-- a&#45;&gt;b -->
+<g id="edge1" class="edge"><title>a-&gt;b</title>
+<path fill="none" stroke="red" d="M279.057,-216.411C274.976,-208.249 269.962,-198.22 265.384,-189.065"></path>
+<polygon fill="red" stroke="red" points="268.432,-187.335 260.83,-179.956 262.171,-190.466 268.432,-187.335"></polygon>
+</g>
+<!-- c -->
+<g id="node3" class="node"><title>c</title>
+<ellipse fill="none" stroke="black" cx="489.352" cy="-162" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="489.352" y="-157.8" font-family="Times,serif" font-size="14.00">[5, 8]: 0</text>
+</g>
+<!-- a&#45;&gt;c -->
+<g id="edge2" class="edge"><title>a-&gt;c</title>
+<path fill="none" stroke="black" d="M317.157,-222.671C352.216,-210.522 410.56,-190.304 449.484,-176.815"></path>
+<polygon fill="black" stroke="black" points="451.121,-179.953 459.423,-173.371 448.829,-173.338 451.121,-179.953"></polygon>
+</g>
+<!-- d -->
+<g id="node4" class="node"><title>d</title>
+<ellipse fill="none" stroke="black" cx="157.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="157.352" y="-85.8" font-family="Times,serif" font-size="14.00">[1, 2]: 1</text>
+</g>
+<!-- b&#45;&gt;d -->
+<g id="edge3" class="edge"><title>b-&gt;d</title>
+<path fill="none" stroke="red" d="M232.667,-146.496C218.911,-136.359 200.348,-122.681 185.093,-111.441"></path>
+<polygon fill="red" stroke="red" points="187.137,-108.6 177.01,-105.485 182.985,-114.235 187.137,-108.6"></polygon>
+</g>
+<!-- e -->
+<g id="node5" class="node"><title>e</title>
+<ellipse fill="none" stroke="black" cx="252.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="252.352" y="-85.8" font-family="Times,serif" font-size="14.00">[3, 4]: 0</text>
+</g>
+<!-- b&#45;&gt;e -->
+<g id="edge4" class="edge"><title>b-&gt;e</title>
+<path fill="none" stroke="black" d="M252.352,-143.697C252.352,-135.983 252.352,-126.712 252.352,-118.112"></path>
+<polygon fill="black" stroke="black" points="255.852,-118.104 252.352,-108.104 248.852,-118.104 255.852,-118.104"></polygon>
+</g>
+<!-- f -->
+<g id="node6" class="node"><title>f</title>
+<ellipse fill="none" stroke="black" cx="513.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="513.352" y="-85.8" font-family="Times,serif" font-size="14.00">[5, 6]: 0</text>
+</g>
+<!-- c&#45;&gt;f -->
+<g id="edge5" class="edge"><title>c-&gt;f</title>
+<path fill="none" stroke="red" d="M495.161,-144.055C497.863,-136.176 501.14,-126.617 504.165,-117.794"></path>
+<polygon fill="red" stroke="red" points="507.496,-118.87 507.429,-108.275 500.874,-116.6 507.496,-118.87"></polygon>
+</g>
+<!-- g -->
+<g id="node7" class="node"><title>g</title>
+<ellipse fill="none" stroke="black" cx="703.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="703.352" y="-85.8" font-family="Times,serif" font-size="14.00">[7, 8]: 0</text>
+</g>
+<!-- c&#45;&gt;g -->
+<g id="edge6" class="edge"><title>c-&gt;g</title>
+<path fill="none" stroke="black" d="M520.012,-150.971C557.675,-138.651 621.665,-117.72 663.213,-104.129"></path>
+<polygon fill="black" stroke="black" points="664.331,-107.446 672.747,-101.011 662.155,-100.793 664.331,-107.446"></polygon>
+</g>
+<!-- h -->
+<g id="node8" class="node"><title>h</title>
+<ellipse fill="none" stroke="black" cx="38.3515" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="38.3515" y="-13.8" font-family="Times,serif" font-size="14.00">[1, 1]: 1</text>
+</g>
+<!-- d&#45;&gt;h -->
+<g id="edge7" class="edge"><title>d-&gt;h</title>
+<path fill="none" stroke="red" d="M134.407,-75.5033C116.134,-64.7542 90.3494,-49.587 70.0954,-37.6729"></path>
+<polygon fill="red" stroke="red" points="71.6194,-34.5087 61.2255,-32.4553 68.0702,-40.5423 71.6194,-34.5087"></polygon>
+</g>
+<!-- i -->
+<g id="node9" class="node"><title>i</title>
+<ellipse fill="none" stroke="black" cx="133.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="133.352" y="-13.8" font-family="Times,serif" font-size="14.00">[2, 2]: 0</text>
+</g>
+<!-- d&#45;&gt;i -->
+<g id="edge8" class="edge"><title>d-&gt;i</title>
+<path fill="none" stroke="black" d="M151.542,-72.055C148.84,-64.1762 145.563,-54.6165 142.538,-45.794"></path>
+<polygon fill="black" stroke="black" points="145.829,-44.5996 139.274,-36.2753 139.207,-46.8699 145.829,-44.5996"></polygon>
+</g>
+<!-- j -->
+<g id="node10" class="node"><title>j</title>
+<ellipse fill="none" stroke="black" cx="228.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="228.352" y="-13.8" font-family="Times,serif" font-size="14.00">[3, 3]: 0</text>
+</g>
+<!-- e&#45;&gt;j -->
+<g id="edge9" class="edge"><title>e-&gt;j</title>
+<path fill="none" stroke="red" d="M246.542,-72.055C243.84,-64.1762 240.563,-54.6165 237.538,-45.794"></path>
+<polygon fill="red" stroke="red" points="240.829,-44.5996 234.274,-36.2753 234.207,-46.8699 240.829,-44.5996"></polygon>
+</g>
+<!-- k -->
+<g id="node11" class="node"><title>k</title>
+<ellipse fill="none" stroke="black" cx="323.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="323.352" y="-13.8" font-family="Times,serif" font-size="14.00">[4, 4]: 0</text>
+</g>
+<!-- e&#45;&gt;k -->
+<g id="edge10" class="edge"><title>e-&gt;k</title>
+<path fill="none" stroke="black" d="M268.109,-73.4647C277.577,-64.1302 289.792,-52.0872 300.327,-41.7002"></path>
+<polygon fill="black" stroke="black" points="302.975,-44.005 307.638,-34.4918 298.06,-39.0202 302.975,-44.005"></polygon>
+</g>
+<!-- l -->
+<g id="node12" class="node"><title>l</title>
+<ellipse fill="none" stroke="black" cx="513.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="513.352" y="-13.8" font-family="Times,serif" font-size="14.00">[5, 5]: 0</text>
+</g>
+<!-- f&#45;&gt;l -->
+<g id="edge11" class="edge"><title>f-&gt;l</title>
+<path fill="none" stroke="red" d="M513.352,-71.6966C513.352,-63.9827 513.352,-54.7125 513.352,-46.1124"></path>
+<polygon fill="red" stroke="red" points="516.852,-46.1043 513.352,-36.1043 509.852,-46.1044 516.852,-46.1043"></polygon>
+</g>
+<!-- m -->
+<g id="node13" class="node"><title>m</title>
+<ellipse fill="none" stroke="black" cx="608.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="608.352" y="-13.8" font-family="Times,serif" font-size="14.00">[6, 6]: 0</text>
+</g>
+<!-- f&#45;&gt;m -->
+<g id="edge12" class="edge"><title>f-&gt;m</title>
+<path fill="none" stroke="black" d="M533.036,-74.496C546.792,-64.3594 565.355,-50.6814 580.61,-39.4412"></path>
+<polygon fill="black" stroke="black" points="582.718,-42.2352 588.693,-33.4855 578.566,-36.5998 582.718,-42.2352"></polygon>
+</g>
+<!-- n -->
+<g id="node14" class="node"><title>n</title>
+<ellipse fill="none" stroke="black" cx="703.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="703.352" y="-13.8" font-family="Times,serif" font-size="14.00">[7, 7]: 0</text>
+</g>
+<!-- g&#45;&gt;n -->
+<g id="edge13" class="edge"><title>g-&gt;n</title>
+<path fill="none" stroke="red" d="M703.352,-71.6966C703.352,-63.9827 703.352,-54.7125 703.352,-46.1124"></path>
+<polygon fill="red" stroke="red" points="706.852,-46.1043 703.352,-36.1043 699.852,-46.1044 706.852,-46.1043"></polygon>
+</g>
+<!-- o -->
+<g id="node15" class="node"><title>o</title>
+<ellipse fill="none" stroke="black" cx="798.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="798.352" y="-13.8" font-family="Times,serif" font-size="14.00">[8, 8]: 0</text>
+</g>
+<!-- g&#45;&gt;o -->
+<g id="edge14" class="edge"><title>g-&gt;o</title>
+<path fill="none" stroke="black" d="M723.036,-74.496C736.792,-64.3594 755.355,-50.6814 770.61,-39.4412"></path>
+<polygon fill="black" stroke="black" points="772.718,-42.2352 778.693,-33.4855 768.566,-36.5998 772.718,-42.2352"></polygon>
+</g>
+<!-- a1 -->
+<g id="node16" class="node"><title>a1</title>
+<ellipse fill="none" stroke="blue" cx="418.352" cy="-234" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="418.352" y="-229.8" font-family="Times,serif" font-size="14.00">[1, 8]: 2</text>
+</g>
+<!-- a1&#45;&gt;c -->
+<g id="edge15" class="edge"><title>a1-&gt;c</title>
+<path fill="none" stroke="black" d="M434.109,-217.465C443.577,-208.13 455.792,-196.087 466.327,-185.7"></path>
+<polygon fill="black" stroke="black" points="468.975,-188.005 473.638,-178.492 464.06,-183.02 468.975,-188.005"></polygon>
+</g>
+<!-- b1 -->
+<g id="node17" class="node"><title>b1</title>
+<ellipse fill="none" stroke="blue" cx="347.352" cy="-162" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="347.352" y="-157.8" font-family="Times,serif" font-size="14.00">[1, 4]: 2</text>
+</g>
+<!-- a1&#45;&gt;b1 -->
+<g id="edge16" class="edge"><title>a1-&gt;b1</title>
+<path fill="none" stroke="red" d="M402.594,-217.465C393.126,-208.13 380.911,-196.087 370.376,-185.7"></path>
+<polygon fill="red" stroke="red" points="372.643,-183.02 363.065,-178.492 367.728,-188.005 372.643,-183.02"></polygon>
+</g>
+<!-- b1&#45;&gt;d -->
+<g id="edge17" class="edge"><title>b1-&gt;d</title>
+<path fill="none" stroke="red" d="M318.08,-150.216C285.444,-138.192 232.509,-118.689 196.372,-105.376"></path>
+<polygon fill="red" stroke="red" points="197.249,-101.969 186.656,-101.796 194.829,-108.538 197.249,-101.969"></polygon>
+</g>
+<!-- e1 -->
+<g id="node18" class="node"><title>e1</title>
+<ellipse fill="none" stroke="blue" cx="347.352" cy="-90" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="347.352" y="-85.8" font-family="Times,serif" font-size="14.00">[3, 4]: 1</text>
+</g>
+<!-- b1&#45;&gt;e1 -->
+<g id="edge18" class="edge"><title>b1-&gt;e1</title>
+<path fill="none" stroke="black" d="M347.352,-143.697C347.352,-135.983 347.352,-126.712 347.352,-118.112"></path>
+<polygon fill="black" stroke="black" points="350.852,-118.104 347.352,-108.104 343.852,-118.104 350.852,-118.104"></polygon>
+</g>
+<!-- e1&#45;&gt;k -->
+<g id="edge19" class="edge"><title>e1-&gt;k</title>
+<path fill="none" stroke="black" d="M341.542,-72.055C338.84,-64.1762 335.563,-54.6165 332.538,-45.794"></path>
+<polygon fill="black" stroke="black" points="335.829,-44.5996 329.274,-36.2753 329.207,-46.8699 335.829,-44.5996"></polygon>
+</g>
+<!-- j1 -->
+<g id="node19" class="node"><title>j1</title>
+<ellipse fill="none" stroke="blue" cx="418.352" cy="-18" rx="38.2036" ry="18"></ellipse>
+<text text-anchor="middle" x="418.352" y="-13.8" font-family="Times,serif" font-size="14.00">[3, 3]: 1</text>
+</g>
+<!-- e1&#45;&gt;j1 -->
+<g id="edge20" class="edge"><title>e1-&gt;j1</title>
+<path fill="none" stroke="red" d="M363.109,-73.4647C372.577,-64.1302 384.792,-52.0872 395.327,-41.7002"></path>
+<polygon fill="red" stroke="red" points="397.975,-44.005 402.638,-34.4918 393.06,-39.0202 397.975,-44.005"></polygon>
+</g>
+</g>
+</svg>
+
+<p>We repeat this until we have inserted every element from our original array and keep track of each root. Notice that in each insert, we only create one node at each layer, or <span class="math inline">\(\mathcal{O}(\log{}n)\)</span> nodes, and there is a total of <span class="math inline">\(n\)</span> insertions. As such, our space complexity is only <span class="math inline">\(\mathcal{O}(n\log{}n)\)</span>. After all the insertions are done, we can locate the root at each <span class="math inline">\(t\)</span> in constant time using a look-up table and query for the <span class="math inline">\(k^{th}\)</span> largest element from the start to a certain position in <span class="math inline">\(\mathcal{O}(\log{}n)\)</span>. We are now ready to take the final step and solve the problem completely.</p>
+<p>For the final step, we notice that we can find the number of elements in the range <span class="math inline">\([l, r]\)</span> whose indices falls in range <span class="math inline">\(&lt;t_1, t_2&gt;\)</span> by doing a prefix sum. That is, we find number of elements in the range <span class="math inline">\([l, r]\)</span> in index-range <span class="math inline">\(&lt;1, t_2&gt;\)</span> and <span class="math inline">\(&lt;1, t_1-1&gt;\)</span> separately, then take their difference. A similar idea that solves the two subproblems can then be used again. The pseudocode (actually c++, again) below shows the query algorithm:</p>
+<div class="sourceCode"><pre class="sourceCode cpp"><code class="sourceCode cpp">
+node nodes[N];
+
+<span class="dt">int</span> find_kth(node n1, node n2, <span class="dt">int</span> k) {
+    <span class="cf">if</span>(is_leaf(n)) <span class="cf">return</span> n.label;
+    <span class="dt">int</span> t = n2.size() - n1.size();
+    <span class="cf">if</span>(k &lt;= t) <span class="cf">return</span> find_kth(n1.right_child, n2.right_child, t);
+    <span class="cf">else</span> <span class="cf">return</span> find_kth(n1.left_child, n2.left_child, k - t);
+}
+
+<span class="dt">int</span> main() {
+    <span class="co">// process the nodes</span>
+    <span class="dt">int</span> t1, t2, k;
+    cin &gt;&gt; t1 &gt;&gt; t2 &gt;&gt; k;
+    cout &lt;&lt; find_kth(nodes[t1 - <span class="dv">1</span>], nodes[t2], k);
+}</code></pre></div>
+<p>The remaining code will be posted when I recovered from the trauma of writing this post and the immense amount of homework. For any queries, feel free to email me at 18yluxu069i@ri.edu.sg.</p>
+    </div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <footer>
+                    <div class="col-lg-12">
+                        <p>
+                            Site proudly generated by
+                            <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+                        </p>
+                    </div>
+            </footer>
+        </div>
+    </div>
+</body>
+
+</html>
