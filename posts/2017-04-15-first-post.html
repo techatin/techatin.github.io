@@ -1,53 +1,280 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="author" content="@katychuang" />
-        <meta name="viewport" content="width=device-width" />
-        <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />
-        <title>Hakyll CSS Garden</title>
-        <script src="../css/jquery.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" title="hakyll_theme" href="../css/default.css" />
-    </head>
-    <body>
-        <div class="highbar">&nbsp;</div>
-        <div id="header">
-            <div class="box">
-                <div id="logo" class="name">
-                    <h2><a href="../">The Professional</a></h2>
-                </div>
-                <div id="navigation" class="pageslinks">
-                    <nav class="menuNav">
-                        <div class="menuItems">
-                            <a href="../">Home</a>
-                            <a href="../about.html">About</a>
-                            <a href="../archive.html">Portfolio</a>
-                        </div>
-                    </nav>
-                </div>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="@katychuang" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />
+    <title>Hakyll CSS Garden</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    <link rel="stylesheet" type="text/css" href="../css/custom.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <div class="highbar">&nbsp;</div>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="../" class="navbar-brand">Just a Blog</a>
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main" aria-expanded="false" style="height: 1px;">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Tags <span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            <li><a href="../default/">Default</a></li>
+                            <li class="divider"></li>
+                            <li><a href="../cerulean/">Cerulean</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../about.html"> About me </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
+                    <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+                </ul>
+
             </div>
         </div>
-        <div class="container-gallery">
-            <div id="content" class="inside">
-                <div class="info">
-    Posted on April 15, 2017
-    
-        by Techatin
-    
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="page-header" id="banner">
+                <div id="content" class="inside">
+                    <div class="row">
+
+    <div class="col-lg-3">
+        <div class="panel panel-default" id="info">
+            <div class="panel-body">
+                <h3> First Legitimate Post </h3>
+                <p>
+                    <small>
+                        Posted on April 15, 2017
+                        
+                            by Techatin
+                        
+                    </small>
+                </p>
+                
+                    <p>
+                        <small>
+                            <a href="../tags/random.html">random</a>
+                        </small>
+                    </p>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        
+            <div class="well">
+                <p> New to hakyll, wasted a ton of time trying to do the css, and now finally here </p>
+            </div>
+            <hr />
+        
+        <p>Is this my first legitimate post? I think so. Let me just test out a few things that I have set up!</p>
+<!--more-->
+<h4 id="inline-latex">Inline Latex</h4>
+<blockquote>
+<p>With a time complexity of <span class="math inline">\(\mathcal{O}(\log{}n)\)</span>, binary search is way superior as compared to linear search</p>
+</blockquote>
+<blockquote>
+<p><span class="math inline">\(\sum^{\infty}_{i=1}{i} = -12\)</span></p>
+</blockquote>
+<h4 id="inline-dot-graph">Inline dot Graph</h4>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: graphName Pages: 1 -->
+<svg width="89pt" height="188pt" viewBox="0.00 0.00 89.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>graphName</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-184 85,-184 85,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<ellipse fill="none" stroke="black" cx="54" cy="-162" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="54" y="-157.8" font-family="Times,serif" font-size="14.00">a</text>
+</g>
+<!-- b -->
+<g id="node2" class="node"><title>b</title>
+<ellipse fill="none" stroke="black" cx="27" cy="-90" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="27" y="-85.8" font-family="Times,serif" font-size="14.00">b</text>
+</g>
+<!-- a&#45;&gt;b -->
+<g id="edge1" class="edge"><title>a-&gt;b</title>
+<path fill="none" stroke="black" d="M47.6014,-144.411C44.4864,-136.335 40.6663,-126.431 37.1654,-117.355"></path>
+<polygon fill="black" stroke="black" points="40.4045,-116.027 33.5403,-107.956 33.8735,-118.546 40.4045,-116.027"></polygon>
+</g>
+<!-- c -->
+<g id="node3" class="node"><title>c</title>
+<ellipse fill="none" stroke="black" cx="54" cy="-18" rx="27" ry="18"></ellipse>
+<text text-anchor="middle" x="54" y="-13.8" font-family="Times,serif" font-size="14.00">c</text>
+</g>
+<!-- a&#45;&gt;c -->
+<g id="edge3" class="edge"><title>a-&gt;c</title>
+<path fill="none" stroke="black" d="M57.6538,-143.908C59.6758,-133.569 61.9808,-120.09 63,-108 64.3441,-92.0566 64.3441,-87.9434 63,-72 62.2834,-63.4991 60.9311,-54.3119 59.4884,-46.0122"></path>
+<polygon fill="black" stroke="black" points="62.9142,-45.2892 57.6538,-36.0925 56.0309,-46.5623 62.9142,-45.2892"></polygon>
+</g>
+<!-- b&#45;&gt;c -->
+<g id="edge2" class="edge"><title>b-&gt;c</title>
+<path fill="none" stroke="black" d="M33.3986,-72.411C36.5136,-64.3352 40.3337,-54.4312 43.8346,-45.3547"></path>
+<polygon fill="black" stroke="black" points="47.1265,-46.5458 47.4597,-35.9562 40.5955,-44.0267 47.1265,-46.5458"></polygon>
+</g>
+</g>
+</svg>
+
+<h4 id="inline-code-syntax-highlighting">Inline Code Syntax Highlighting</h4>
+<div class="sourceCode"><table class="sourceCode haskell numberLines"><tr class="sourceCode"><td class="lineNumbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+</pre></td><td class="sourceCode"><pre><code class="sourceCode haskell">
+<span class="co">-- exercise 3</span>
+<span class="co">-- some ground work...</span>
+
+<span class="kw">data</span> <span class="dt">Stream</span> a <span class="fu">=</span> <span class="dt">Cons</span> a (<span class="dt">Stream</span> a)
+
+streamToList (<span class="dt">Cons</span> a b) <span class="fu">=</span> a<span class="fu">:</span>(streamToList b)
+
+<span class="kw">instance</span> <span class="dt">Show</span> a <span class="ot">=&gt;</span> <span class="dt">Show</span> (<span class="dt">Stream</span> a) <span class="kw">where</span>
+    show <span class="fu">=</span> show<span class="fu">.</span> take <span class="dv">20</span> <span class="fu">.</span>streamToList
+
+<span class="co">-- exercise 4</span>
+<span class="co">-- more ground work...</span>
+
+<span class="ot">streamRepeat ::</span> a <span class="ot">-&gt;</span> <span class="dt">Stream</span> a
+streamRepeat x <span class="fu">=</span> <span class="dt">Cons</span> x (streamRepeat x)
+
+<span class="ot">streamMap ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Stream</span> a <span class="ot">-&gt;</span> <span class="dt">Stream</span> b
+streamMap f (<span class="dt">Cons</span> x xs) <span class="fu">=</span> <span class="dt">Cons</span> (f x) (streamMap f xs)
+
+<span class="ot">streamFromSeed ::</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Stream</span> a
+streamFromSeed f x <span class="fu">=</span> <span class="dt">Cons</span> x (streamFromSeed f (f x))
+
+<span class="co">-- exercise 5</span>
+<span class="co">-- even more ground work...</span>
+
+<span class="ot">nats ::</span> <span class="dt">Stream</span> <span class="dt">Integer</span>
+nats <span class="fu">=</span> streamFromSeed (<span class="fu">+</span><span class="dv">1</span>) <span class="dv">0</span>
+
+<span class="ot">interleaveStream ::</span> <span class="dt">Stream</span> a <span class="ot">-&gt;</span> <span class="dt">Stream</span> a <span class="ot">-&gt;</span> <span class="dt">Stream</span> a
+interleaveStream (<span class="dt">Cons</span> x xs) z <span class="fu">=</span> <span class="dt">Cons</span> x (interleaveStream z xs)
+
+<span class="ot">startRuler ::</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Stream</span> <span class="dt">Integer</span>
+startRuler y <span class="fu">=</span> interleaveStream (streamRepeat y) (startRuler (y <span class="fu">+</span> <span class="dv">1</span>))
+
+<span class="ot">ruler ::</span> <span class="dt">Stream</span> <span class="dt">Integer</span>
+ruler <span class="fu">=</span> startRuler <span class="dv">0</span>
+
+<span class="co">-- exercise 6</span>
+<span class="co">-- generating function!!! (suan)</span>
+
+<span class="ot">x ::</span> <span class="dt">Stream</span> <span class="dt">Integer</span>
+x <span class="fu">=</span> <span class="dt">Cons</span> <span class="dv">0</span> (<span class="dt">Cons</span> <span class="dv">1</span> (streamRepeat <span class="dv">0</span>))
+
+<span class="kw">instance</span> <span class="dt">Num</span> (<span class="dt">Stream</span> <span class="dt">Integer</span>) <span class="kw">where</span>
+    fromInteger x <span class="fu">=</span> <span class="dt">Cons</span> x (streamRepeat <span class="dv">0</span>)
+    negate <span class="fu">=</span> streamMap (<span class="dv">0</span><span class="fu">-</span>)
+    (<span class="fu">+</span>) (<span class="dt">Cons</span> x xs) (<span class="dt">Cons</span> y ys) <span class="fu">=</span> <span class="dt">Cons</span> (x <span class="fu">+</span> y) (xs <span class="fu">+</span> ys)
+    (<span class="fu">*</span>) (<span class="dt">Cons</span> x xs) s<span class="fu">@</span>(<span class="dt">Cons</span> y ys) <span class="fu">=</span> <span class="dt">Cons</span> (x <span class="fu">*</span> y) ((streamMap (<span class="fu">*</span>x) ys) <span class="fu">+</span> xs <span class="fu">*</span> s)
+
+<span class="kw">instance</span> <span class="dt">Fractional</span> (<span class="dt">Stream</span> <span class="dt">Integer</span>) <span class="kw">where</span>
+    (<span class="fu">/</span>) (<span class="dt">Cons</span> x xs) (<span class="dt">Cons</span> y ys) <span class="fu">=</span> q <span class="kw">where</span>
+        q <span class="fu">=</span> <span class="dt">Cons</span> (x <span class="ot">`div`</span> y) (streamMap (<span class="ot">`div`</span> y) (xs <span class="fu">-</span> q <span class="fu">*</span> ys))
+
+<span class="ot">fibs3 ::</span> <span class="dt">Stream</span> <span class="dt">Integer</span>
+fibs3 <span class="fu">=</span> x <span class="fu">/</span> (<span class="dv">1</span> <span class="fu">-</span> x <span class="fu">-</span> x<span class="fu">^</span><span class="dv">2</span>)</code></pre></td></tr></table></div>
+    </div>
+
 </div>
 
-<p>Is this my first legitimate post? I think so.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <footer>
+                    <div class="col-lg-12">
+                        <p>
+                            Site proudly generated by
+                            <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
+                        </p>
+                    </div>
+            </footer>
+        </div>
+    </div>
+</body>
 
-            </div>
-        </div>
-        <div id="footer">
-            <div class="inside">
-                Site proudly generated by
-                <a href="http://jaspervdj.be/hakyll">Hakyll</a>.
-                This theme was designed by <a href="http://twitter.com/katychuang">Dr. Kat</a> and showcased in the <a href="http://katychuang.com/hakyll-cssgarden/gallery/">Hakyll-CSSGarden</a>
-            </div>
-        </div>
-    </body>
 </html>
