@@ -49,6 +49,16 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" ctx
                 >>= relativizeUrls
 
+    create ["tags/index.html"] $ do
+        route idRoute
+        compile $ do
+            let ctx = mconcat [ constField "title" "Tags", defaultContext]
+
+            renderTagList tags
+                >>= makeItem
+                >>= loadAndApplyTemplate "templates/default.html" ctx
+                >>= relativizeUrls
+
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocMathCompiler
