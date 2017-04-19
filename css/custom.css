@@ -3,6 +3,10 @@ body {
     margin: 0 0 30px;
 }
 
+img {
+    max-width: 100%;
+}
+
 body>.navbar {
     -webkit-transition: background-color .3s ease-in;
     transition: background-color .3s ease-in
