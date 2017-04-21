@@ -68,3 +68,28 @@ Mathematically speaking, an FSA is a quintuple $(\sum, S, s_0, \delta, F)$, wher
 - $\delta$ is the transition function $\delta: \sum \times S \rightarrow S$ that states what state you will end up in given the current state and input.
 - $F$ is the set of final states. If a sequence of input lands us in the final state, we say that the FSA **accepts** the input
 
+So now it may be time to talk about what we call 'regular languages'. Loosely speaking, regular languages are languages that can be descibed by some FSA. In other words, a language is a regular language if all its string can be accepted by some FSA.
+
+But the problem is, how are regular languages constructed other than specifying some FSA, which can be troublesome most of the time. The answer, is familiar and yet interesting - regular expressions.
+
+The mathematical definition of regular expressions is as follows:
+
+We say R is a regular expression if R is
+
+- $a$ for some $a$ in the alphabet $\sum$ or
+
+- $\epsilon$ or
+
+- $\emptyset$ or
+
+- $(R_1 \cup R_2)$, where $R_1$ and $R_2$ are regular expressions
+
+- $(R_1 \circ R_2)$, where $R_1$ and $R_2$ are regular expressions
+
+- $R_1^*$, where $R_1$ is a regular expressions
+
+
+In the above definition, $a \cup b$ means 'either a or b', $a \circ b$ means 'a, and then b', and $a^*$ means 'zero or more occurrences of a'. Note the distinction between $\epsilon$ and $\emptyset$. The former means 'match the empty string', while the latter means 'nothing, even the empty string'!
+
+So now, do you see how the things come together? Regular expression is no more than just one way to specify what type of string we really need. But sometimes, it may be useful to know when regular expression fails. For instance, is it possible for you to match a string that has the same amount of 0's and 1's using just regular expression? It turns out to be impossible. But to prove this mathematically may not be easy. With the introduction of the lemma, our job is greatly simplified. The lemma goes like this:
+
