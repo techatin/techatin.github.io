@@ -18,9 +18,6 @@ But there is actually quite a lot of Mathematics going on behind this thing. In 
 
 Before we start with Regex, let's look at something called finite state automatons(FSA). FSAs can be understood as a set of rules between a set of states. There are two special states, the **start** state, where we start from, and the **final** state, which we end up in. For instance, suppose you want to buy a can of drink that costs \$0.50 from a vending machine. The machine accepts coins of values \$0.10, \$0.20, \$0.50, and \$1.00. Then, the decision process of the machine can actually be represented using an FSA! Consider the following FSA:
 
-
-
-
 ```{lang="dot"}
 digraph G {
     a->b[label="$0.10"];
@@ -66,9 +63,9 @@ Mathematically speaking, an FSA is a quintuple $(\sum, S, s_0, \delta, F)$, wher
 - $S$ is the set of states
 - $s_0$ is the start state, that alll actions start in
 - $\delta$ is the transition function $\delta: \sum \times S \rightarrow S$ that states what state you will end up in given the current state and input.
-- $F$ is the set of final states. If a sequence of input lands us in the final state, we say that the FSA **accepts** the input
+- $F$ is the set of final states. If a sequence of input lands us in the final state, we say that the FSA **recognises** the input
 
-So now it may be time to talk about what we call 'regular languages'. Loosely speaking, regular languages are languages that can be descibed by some FSA. In other words, a language is a regular language if all its string can be accepted by some FSA.
+So now it may be time to talk about what we call 'regular languages'. Loosely speaking, regular languages are languages that can be descibed by some FSA. In other words, a language is a regular language if all its string can be recognised by some FSA.
 
 But the problem is, how are regular languages constructed other than specifying some FSA, which can be troublesome most of the time. The answer, is familiar and yet interesting - regular expressions.
 
@@ -86,10 +83,20 @@ We say R is a regular expression if R is
 
 - $(R_1 \circ R_2)$, where $R_1$ and $R_2$ are regular expressions
 
-- $R_1^*$, where $R_1$ is a regular expressions
+- $R_1^*$, where $R_1$ is a regular expression
 
 
 In the above definition, $a \cup b$ means 'either a or b', $a \circ b$ means 'a, and then b', and $a^*$ means 'zero or more occurrences of a'. Note the distinction between $\epsilon$ and $\emptyset$. The former means 'match the empty string', while the latter means 'nothing, even the empty string'!
 
 So now, do you see how the things come together? Regular expression is no more than just one way to specify what type of string we really need. But sometimes, it may be useful to know when regular expression fails. For instance, is it possible for you to match a string that has the same amount of 0's and 1's using just regular expression? It turns out to be impossible. But to prove this mathematically may not be easy. With the introduction of the lemma, our job is greatly simplified. The lemma goes like this:
 
+- Let $L$ be a regular language. Then there exists an integer $p \geq 1$ depending only on $L$ such that every string $w$ in $L$ of length at least $p$ (the "pumping length") can be written as $w = xyz$ (i.e., w can be divided into three substrings), satisfying the following conditions:
+    - $|y| \geq 1$
+    - $|xy| \leq p$
+    - for all $i \geq 0$, $xy^iz \in L$
+
+The proof of this lemma will not be discussed in this article, since there is plenty of resources online for one to refer to. What we will do, however, is to use this lemma to prove that certain languages cannot be regular, so you will not be wasting you time trying to come up with regexes for them.
+
+Take, for instance, the example above. We will do a proof by contradiction. Suppose that the language with an equal number of 0's and 1's are indeed regular, and that it has pumping length $p$. Let $s$ be the string $0^p1^p$. Pumping lemma suggests that all strings in the language can be pumped, and in particular $s$ can be pumped. However, due to the second restriction, if we let $s=xyz$, $y$ will always end up having all 0's, and as such, by removing $y$ or repeating it for more than once, there will be more 0's than 1's, and this string is obviously not in our language, which results in a contradiction. As such, it must be true that the language in question is not regular. As such, you are just wasting your time trying to come up with a regex that can describe the language.
+
+Now, the mathematics part is pretty much done, but how does that apply to the engineering part? Well, if you have yet to realise, regex is the mathematical regular expression! The IEEE POSIX standard for regular expressions really just gives us a few syntactical sugars for writing them in a human readable way (which had clearly failed). Hence, the exact details of regex will not be discussed in this article. But at the end of the day, when in doubt, just draw out the FSA representing the strings you want to match, and convert it into regex. I swear it is definitely easier than dealing with a monoid in the category of endofunctors, or trying to dissect the spaghetti-like regexes online.
