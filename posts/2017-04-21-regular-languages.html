@@ -281,7 +281,7 @@
 <li><span class="math inline">\(\delta\)</span> is the transition function <span class="math inline">\(\delta: \sum \times S \rightarrow S\)</span> that states what state you will end up in given the current state and input.</li>
 <li><span class="math inline">\(F\)</span> is the set of final states. If a sequence of input lands us in the final state, we say that the FSA <strong>recognises</strong> the input</li>
 </ul>
-<p>So now it may be time to talk about what we call ‘regular languages’. Loosely speaking, regular languages are languages that can be descibed by some FSA. In other words, a language is a regular language if all its string can be recognised by some FSA.</p>
+<p>So now it may be time to talk about what we call ‘regular languages’. Loosely speaking, regular languages are languages that can be described by some FSA. In other words, a language is a regular language if all its string can be recognised by some FSA.</p>
 <p>But the problem is, how are regular languages constructed other than specifying some FSA, which can be troublesome most of the time. The answer, is familiar and yet interesting - regular expressions.</p>
 <p>The mathematical definition of regular expressions is as follows:</p>
 <p>We say R is a regular expression if R is</p>
@@ -307,6 +307,7 @@
 <p>Take, for instance, the example above. We will do a proof by contradiction. Suppose that the language with an equal number of 0’s and 1’s is indeed regular, and that it has pumping length <span class="math inline">\(p\)</span>. Let <span class="math inline">\(s\)</span> be the string <span class="math inline">\(0^p1^p\)</span>. Pumping lemma suggests that all strings in the language can be pumped, and in particular <span class="math inline">\(s\)</span> can be pumped. However, due to the second restriction, if we let <span class="math inline">\(s=xyz\)</span>, <span class="math inline">\(y\)</span> will always end up having all 0’s, and as such, by removing <span class="math inline">\(y\)</span>, we will have less 0’s than 1’s, but by repeating it for more than once, there will be more 0’s than 1’s, and the resultant strings are obviously not in our language, which results in a contradiction. As such, it must be true that the language in question is not regular. As such, you are just wasting your time trying to come up with a regex that can describe the language.</p>
 <p>Now, the mathematics part is pretty much done, but how does that apply to the engineering part? Well, if you have yet to realise, regex is the mathematical regular expression! The IEEE POSIX standard for regular expressions really just gives us a few syntactical sugars for writing them in a human readable way (which had clearly failed). Hence, the exact details of regex will not be discussed in this article. But at the end of the day, when in doubt, just draw out the FSA representing the strings you want to match, and convert it into regex. I swear it is definitely easier than dealing with a monoid in the category of endofunctors, or trying to dissect the spaghetti-like regexes online.</p>
     </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"></div>
 </div>
 
         </div>
