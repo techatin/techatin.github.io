@@ -65,7 +65,7 @@ Mathematically speaking, an FSA is a quintuple $(\sum, S, s_0, \delta, F)$, wher
 - $\delta$ is the transition function $\delta: \sum \times S \rightarrow S$ that states what state you will end up in given the current state and input.
 - $F$ is the set of final states. If a sequence of input lands us in the final state, we say that the FSA **recognises** the input
 
-So now it may be time to talk about what we call 'regular languages'. Loosely speaking, regular languages are languages that can be descibed by some FSA. In other words, a language is a regular language if all its string can be recognised by some FSA.
+So now it may be time to talk about what we call 'regular languages'. Loosely speaking, regular languages are languages that can be described by some FSA. In other words, a language is a regular language if all its string can be recognised by some FSA.
 
 But the problem is, how are regular languages constructed other than specifying some FSA, which can be troublesome most of the time. The answer, is familiar and yet interesting - regular expressions.
 

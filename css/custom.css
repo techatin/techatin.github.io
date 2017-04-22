@@ -29,8 +29,10 @@ body>.navbar {
     overflow-x: auto;
 }
 
-.panel {
+.col-lg-3.panel {
     float: none;
+    min-width: 25%;
+    max-width: 25%;
 }
 
 #home {
@@ -502,7 +504,7 @@ code>span.in {
 
 /* Information */
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
     .panel {
         position: fixed;
         float: left;
