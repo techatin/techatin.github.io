@@ -35,6 +35,11 @@ body>.navbar {
     max-width: 25%;
 }
 
+.col-md-3.panel {
+    min-width: 20%;
+    max-width: 20%;
+}
+
 #home {
     padding-top: 0
 }
@@ -508,5 +513,14 @@ code>span.in {
     .panel {
         position: fixed;
         float: left;
+        max-width: 20%;
     }
+}
+
+#intro h1{
+    text-align: center;
+}
+
+#intro p{
+    text-align: center;
 }
