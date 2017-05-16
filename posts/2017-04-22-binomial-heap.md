@@ -1,5 +1,5 @@
 ---
-title: A Gentle Introduction to Binomial Heap
+title: A Gentle Introduction to Binomial Heap (Part 1)
 author: Techatin
 tags: data structures
 bios: the thing that is more efficient than a normal heap, and significantly more friendly than fibonacci heap
@@ -79,4 +79,6 @@ digraph G {
 }
 ```
 
-Pretend that you saw two binomial heaps. I was too lazy to generate the full thing. So, what we want to do is to merge binomial trees of the same size. If you have one of each in the heap, we can just merge the two like what is described above. If there is only one of each, we keep it the way it was. 
+Pretend that you saw two binomial heaps. I was too lazy to generate the full thing. So, what we want to do is to merge binomial trees of the same size. If you have one of each in the heap, we can just merge the two like what is described above. If there is only one of each, we keep it the way it was. But what happens when we have two trees of the same size, and had previously created one that has the size? We merge the heaps arbitrarily. Wait doesn't this seem a bit familiar? If we have two heaps with binomial trees of degree at most 8, we can represent them in binaries, where the $i^th$ bit is 1 if there is a binomial tree of order i, 0 otherwise. Merging the two heaps $00111010_2$ and $01001001_2$ gives us $10000011_2$. This is like binary addition! It easily comes to us that the there are at most $\log{}N$ binomial trees in the heap, where $N$ is the number of elements in the heap. But then, how does one find the minimum element? We just keep a pointer to the root of the tree containing the minimum element, and whenever ```find_min``` is called, we return its value.
+
+This marks the end of part 1. In the next part, I will explain how does insertion of elements work, as well as how deletion of elements work.
