@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="@katychuang" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Cache-Control" content="max-age=86400, must-revalidate" />
+    <title>I love Marymount JC</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="../js/custom.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/default.css" />
+    <link rel="stylesheet" type="text/css" href="../css/custom.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <div class="highbar">&nbsp;</div>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="../" class="navbar-brand">Just a Blog</a>
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main" aria-expanded="false" style="height: 1px;">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="../tags/index.html">Tags</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../about.html"> About me </a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
+                    <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div id="content" class="inside">
+            <div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+        <div class="panel panel-default" id="info">
+            <div class="panel-body">
+                <h3> A Gentle Introduction to Binomial Heap (Part 1) </h3>
+                <p>
+                    <small>
+                        Posted on April 22, 2017
+                        
+                            by Techatin
+                        
+                    </small>
+                </p>
+                
+                    <p>
+                        <small>
+                            <a href="../tags/data%20structures.html">data structures</a>
+                        </small>
+                    </p>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+        
+            <div class="well">
+                <p> the thing that is more efficient than a normal heap, and significantly more friendly than fibonacci heap </p>
+            </div>
+            <hr />
+        
+        <p>Sometimes in life, one will start questioning: do perfect things ever exist? Well of course they do. Communism, Marymount JC, Haskell, CPM the Protector of Alma Mater - there are just so many of them. Binomial heap - in my opinion is another one of those perfect things.</p>
+<!--more-->
+<p>So what is a binomial heap? I have a heap:</p>
+<div class="figure">
+<img src="../images/240px-Min-heap.png" />
+
+</div>
+<p>I have binomial:</p>
+<div class="figure">
+<img src="../images/binomial.png" />
+
+</div>
+<p>UHH! BINOMIAL HEAP!</p>
+<div class="figure">
+<img src="../images/binomial_heap.png" />
+
+</div>
+<p>Ok jokes aside. A more useful question to ask might be why on earth do we need binomial heaps in the first place. A regular heap allows us to perform insertion and deletion of minimum element in <span class="math inline">\(\mathcal{O}(\log{}n)\)</span>, and get the minimum element in constant time. However, such a heap would fare badly when we want to merge two heaps together, taking a total of <span class="math inline">\(\mathcal{O}(n)\)</span> time. A binomial heap, on the other hand, allows us to even merge two heaps in <span class="math inline">\(\mathcal{O}(\log{}n)\)</span> time. But to grasp the concept of a binomial heap properly, we need to first grasp the concept of a special heap called a binomial tree.</p>
+<p>This is a binomial tree of order 0:</p>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="44pt" height="44pt" viewBox="0.00 0.00 44.00 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-40 40,-40 40,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="18" y="-13.8" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+</g>
+</svg>
+
+<p>There is nothing too special about it. It is just one node with a value associated. This is a binomial tree of order 1:</p>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="44pt" height="116pt" viewBox="0.00 0.00 44.00 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-112 40,-112 40,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-90" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="18" y="-85.8" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- b -->
+<g id="node2" class="node"><title>b</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-18" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="18" y="-13.8" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- a&#45;&gt;b -->
+<g id="edge1" class="edge"><title>a-&gt;b</title>
+<path fill="none" stroke="black" d="M18,-71.6966C18,-63.9827 18,-54.7125 18,-46.1124"></path>
+<polygon fill="black" stroke="black" points="21.5001,-46.1043 18,-36.1043 14.5001,-46.1044 21.5001,-46.1043"></polygon>
+</g>
+</g>
+</svg>
+
+<p>There is nothing too special about it either. It is just two nodes with the smaller node pointing to the larger one. But look, this is a binomial tree of order 2:</p>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="98pt" height="188pt" viewBox="0.00 0.00 98.00 188.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-184 94,-184 94,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<ellipse fill="none" stroke="black" cx="45" cy="-162" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="45" y="-157.8" font-family="Times,serif" font-size="14.00">1</text>
+</g>
+<!-- b -->
+<g id="node2" class="node"><title>b</title>
+<ellipse fill="none" stroke="black" cx="18" cy="-90" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="18" y="-85.8" font-family="Times,serif" font-size="14.00">2</text>
+</g>
+<!-- a&#45;&gt;b -->
+<g id="edge1" class="edge"><title>a-&gt;b</title>
+<path fill="none" stroke="black" d="M38.7378,-144.765C35.5004,-136.371 31.4747,-125.934 27.8339,-116.495"></path>
+<polygon fill="black" stroke="black" points="31.0925,-115.218 24.2282,-107.147 24.5615,-117.737 31.0925,-115.218"></polygon>
+</g>
+<!-- c -->
+<g id="node3" class="node"><title>c</title>
+<ellipse fill="none" stroke="black" cx="72" cy="-90" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="72" y="-85.8" font-family="Times,serif" font-size="14.00">3</text>
+</g>
+<!-- a&#45;&gt;c -->
+<g id="edge2" class="edge"><title>a-&gt;c</title>
+<path fill="none" stroke="black" d="M51.2622,-144.765C54.4996,-136.371 58.5253,-125.934 62.1661,-116.495"></path>
+<polygon fill="black" stroke="black" points="65.4385,-117.737 65.7718,-107.147 58.9075,-115.218 65.4385,-117.737"></polygon>
+</g>
+<!-- d -->
+<g id="node4" class="node"><title>d</title>
+<ellipse fill="none" stroke="black" cx="72" cy="-18" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="72" y="-13.8" font-family="Times,serif" font-size="14.00">4</text>
+</g>
+<!-- c&#45;&gt;d -->
+<g id="edge3" class="edge"><title>c-&gt;d</title>
+<path fill="none" stroke="black" d="M72,-71.6966C72,-63.9827 72,-54.7125 72,-46.1124"></path>
+<polygon fill="black" stroke="black" points="75.5001,-46.1043 72,-36.1043 68.5001,-46.1044 75.5001,-46.1043"></polygon>
+</g>
+</g>
+</svg>
+
+<p>It is just two binomial trees of order 1 merged together! Specifically, A binomial tree of order <span class="math inline">\(n + 1\)</span> is just two binomial tree of order <span class="math inline">\(n\)</span> with the roots joined together, rooted at the root node with the smaller value.</p>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="243pt" height="206pt" viewBox="0.00 0.00 243.12 205.90" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 201.901)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-201.901 239.121,-201.901 239.121,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<polygon fill="none" stroke="black" points="131.064,-44 102.936,-11 159.192,-11 131.064,-44"></polygon>
+<text text-anchor="middle" x="131.064" y="-17.8" font-family="Times,serif" font-size="14.00">a</text>
+</g>
+<!-- b -->
+<g id="node2" class="node"><title>b</title>
+<polygon fill="none" stroke="black" points="206.064,-44 176.95,-11 235.178,-11 206.064,-44"></polygon>
+<text text-anchor="middle" x="206.064" y="-17.8" font-family="Times,serif" font-size="14.00">b</text>
+</g>
+<!-- c -->
+<g id="node3" class="node"><title>c</title>
+<polygon fill="none" stroke="black" points="28.0639,-124 -0.0640869,-91 56.192,-91 28.0639,-124"></polygon>
+<text text-anchor="middle" x="28.0639" y="-97.8" font-family="Times,serif" font-size="14.00">c</text>
+</g>
+<!-- d -->
+<g id="node4" class="node"><title>d</title>
+<polygon fill="none" stroke="black" points="103.064,-124 73.9496,-91 132.178,-91 103.064,-124"></polygon>
+<text text-anchor="middle" x="103.064" y="-97.8" font-family="Times,serif" font-size="14.00">d</text>
+</g>
+<!-- e -->
+<g id="node5" class="node"><title>e</title>
+<ellipse fill="none" stroke="black" cx="169.064" cy="-102" rx="18.9007" ry="18.9007"></ellipse>
+<text text-anchor="middle" x="169.064" y="-97.8" font-family="Times,serif" font-size="14.00">22</text>
+</g>
+<!-- e&#45;&gt;a -->
+<g id="edge2" class="edge"><title>e-&gt;a</title>
+<path fill="none" stroke="black" d="M161.005,-84.4582C155.504,-73.1666 148.147,-58.0649 142.102,-45.6574"></path>
+<polygon fill="black" stroke="black" points="145.123,-43.8657 137.596,-36.4087 138.83,-46.9315 145.123,-43.8657"></polygon>
+</g>
+<!-- e&#45;&gt;b -->
+<g id="edge3" class="edge"><title>e-&gt;b</title>
+<path fill="none" stroke="black" d="M176.911,-84.4582C182.233,-73.2372 189.341,-58.2536 195.206,-45.8904"></path>
+<polygon fill="black" stroke="black" points="198.461,-47.1942 199.585,-36.6591 192.136,-44.194 198.461,-47.1942"></polygon>
+</g>
+<!-- f -->
+<g id="node6" class="node"><title>f</title>
+<ellipse fill="none" stroke="black" cx="103.064" cy="-178.95" rx="18.9007" ry="18.9007"></ellipse>
+<text text-anchor="middle" x="103.064" y="-174.75" font-family="Times,serif" font-size="14.00">13</text>
+</g>
+<!-- f&#45;&gt;c -->
+<g id="edge4" class="edge"><title>f-&gt;c</title>
+<path fill="none" stroke="black" d="M89.9999,-164.895C77.6506,-152.554 59.0391,-133.955 45.442,-120.367"></path>
+<polygon fill="black" stroke="black" points="47.6485,-117.623 38.101,-113.03 42.7003,-122.575 47.6485,-117.623"></polygon>
+</g>
+<!-- f&#45;&gt;d -->
+<g id="edge5" class="edge"><title>f-&gt;d</title>
+<path fill="none" stroke="black" d="M103.064,-159.807C103.064,-152.168 103.064,-143.054 103.064,-134.387"></path>
+<polygon fill="black" stroke="black" points="106.564,-134.165 103.064,-124.165 99.564,-134.165 106.564,-134.165"></polygon>
+</g>
+<!-- f&#45;&gt;e -->
+<g id="edge1" class="edge"><title>f-&gt;e</title>
+<path fill="none" stroke="black" d="M115.169,-164.203C125.031,-153.004 139.122,-137.002 150.423,-124.169"></path>
+<polygon fill="black" stroke="black" points="153.053,-126.478 157.035,-116.66 147.8,-121.852 153.053,-126.478"></polygon>
+</g>
+</g>
+</svg>
+
+<p>Now it is the time for a surprise: a binomial heap is not a heap!!!! It is in fact a forest of binomial trees, like the one presented above, such that for any natural number n, there is either one or no binomial tree of order n. Now that we have the definition of a binomial heap ready, let us see how we can do regular heap things with it. But hey, are you not <strong>curious</strong> about how does it merge in <span class="math inline">\(\mathcal{O}(\log{}n)\)</span>? I guess we will do this first, and you will see how the other operations come naturally with it.</p>
+<p>So now we have two binomial heaps:</p>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.38.0 (20140413.2041)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="134pt" height="44pt" viewBox="0.00 0.00 134.00 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-40 130,-40 130,4 -4,4"></polygon>
+<!-- a -->
+<g id="node1" class="node"><title>a</title>
+<polygon fill="none" stroke="red" points="54,-36 0,-36 0,-0 54,-0 54,-36"></polygon>
+<text text-anchor="middle" x="27" y="-13.8" font-family="Times,serif" font-size="14.00">a</text>
+</g>
+<!-- b -->
+<g id="node2" class="node"><title>b</title>
+<polygon fill="none" stroke="blue" points="126,-36 72,-36 72,-0 126,-0 126,-36"></polygon>
+<text text-anchor="middle" x="99" y="-13.8" font-family="Times,serif" font-size="14.00">b</text>
+</g>
+</g>
+</svg>
+
+<p>Pretend that you saw two binomial heaps. I was too lazy to generate the full thing. So, what we want to do is to merge binomial trees of the same size. If you have one of each in the heap, we can just merge the two like what is described above. If there is only one of each, we keep it the way it was. But what happens when we have two trees of the same size, and had previously created one that has the size? We merge the heaps arbitrarily. Wait doesn’t this seem a bit familiar? If we have two heaps with binomial trees of degree at most 8, we can represent them in binaries, where the <span class="math inline">\(i^th\)</span> bit is 1 if there is a binomial tree of order i, 0 otherwise. Merging the two heaps <span class="math inline">\(00111010_2\)</span> and <span class="math inline">\(01001001_2\)</span> gives us <span class="math inline">\(10000011_2\)</span>. This is like binary addition! It easily comes to us that the there are at most <span class="math inline">\(\log{}N\)</span> binomial trees in the heap, where <span class="math inline">\(N\)</span> is the number of elements in the heap. But then, how does one find the minimum element? We just keep a pointer to the root of the tree containing the minimum element, and whenever <code>find_min</code> is called, we return its value.</p>
+<p>This marks the end of part 1. In the next part, I will explain how does insertion of elements work, as well as how deletion of elements work.</p>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12"></div>
+</div>
+
+        </div>
+    </div>
+</body>
+
+</html>
